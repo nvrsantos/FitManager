@@ -1,21 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import React from 'react'
+import { StatusBar } from 'react-native'
+import { useFonts } from 'expo-font'
+import { NavigationContainer } from '@react-navigation/native'
+import { Provider as PaperProvider } from 'react-native-paper';
+import { AuthProvider } from './src/context/auth'
+
+import Routes from './src/routes'
+import { primary } from './src/utils/colors'
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+	const [loaded] = useFonts({
+		Archivo: require('./assets/fonts/Archivo-Regular.ttf'),
+		Archivo_medium: require('./assets/fonts/Archivo-Medium.ttf'),
+		Archivo_bold: require('./assets/fonts/Archivo-Bold.ttf'),
+		Roboto: require('./assets/fonts/Roboto-Regular.ttf'),
+		Roboto_light: require('./assets/fonts/Roboto-Light.ttf'),
+		Roboto_bold: require('./assets/fonts/Roboto-Bold.ttf'),
+	})
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+	if (!loaded) return null
+
+	return (
+		<NavigationContainer>
+			<StatusBar backgroundColor={primary.darker} barStyle="light-content" />
+			<AuthProvider>
+				<PaperProvider>
+					<Routes />
+				</PaperProvider>
+			</AuthProvider>
+		</NavigationContainer>
+	);
+}
