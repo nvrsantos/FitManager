@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     container: {
         borderRadius: 15,
         padding: 10,
-        margin: 5
+        margin: 5,
     },
     circleIcon: {
         position: 'absolute',
@@ -42,6 +42,10 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 25,
+    },
+    skeletonBoxFluid: {
+        width: '100%',
+        height: 130,
     },
 
     // Box Square

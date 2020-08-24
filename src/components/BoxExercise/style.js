@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native'
 import { primary } from '../../utils/colors';
 import { Roboto } from '../../utils/fonts';
 
-const styles = StyleSheet.create({
+export default StyleSheet.create({
     container: {
         width: '100%',
         backgroundColor: primary.light,
@@ -34,11 +34,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 10,
     },
-    dateText: {
+    text: {
         color: '#fff',
         fontFamily: Roboto.regular,
         fontSize: 15,
         marginLeft: 10
+    },
+    textTitle: {
+        color: '#fff',
+        fontFamily: Roboto.regular,
+        fontSize: 20,
     },
     circleIcon: {
         width: 50,
@@ -59,5 +64,3 @@ const styles = StyleSheet.create({
         width: 140,
     }
 });
-
-export default styles

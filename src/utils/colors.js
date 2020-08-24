@@ -8,6 +8,7 @@ export const primary = {
     primary: '#6c5ce7',
     dark: '#774DD6',
     darker: '#6842C2',
+    skeleton: '#8F89E1',
 }
 
 export const secondary = {

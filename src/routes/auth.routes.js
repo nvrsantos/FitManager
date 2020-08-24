@@ -23,7 +23,7 @@ const HeaderLeft = (props) => {
 
 const RoutesAuth = () => (
     <Stack.Navigator initialRouteName={initialRoute()}>
-        {/* <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} /> */}
+        <Stack.Screen name="Onboarding" component={OnboardingScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Signin" component={SigninScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Signup" component={SignupScreen}
             options={({ navigation }) => ({

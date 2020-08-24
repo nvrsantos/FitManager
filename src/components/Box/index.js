@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Dimensions } from 'react-native'
+import { View, Text } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import styles from './style'
@@ -23,7 +23,8 @@ export const BoxFluid = (props) => {
             <View style={styles.bottomInfo}>
                 <Text style={styles.bottomText}>{props.secondaryText}</Text>
             </View>
-        </View>
+        </View >
+
     )
 }
 

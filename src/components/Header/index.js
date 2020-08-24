@@ -12,7 +12,7 @@ const HeaderComponent = (props) => {
         <View style={[styles.container, { backgroundColor: bg }]}>
             <View style={styles.content}>
                 <TouchW onPress={props.onClick} style={styles.leftHeader}>
-                    <Icon color={text.complement} size={props.iconSize} name={props.icon} />
+                    <Icon color={colorLabel} size={props.iconSize || 30} name={props.icon || "menu"} />
                 </TouchW>
                 <View style={styles.headerContent}>
                     <Text style={[styles.label, { color: colorLabel }]}>{props.label}</Text>
