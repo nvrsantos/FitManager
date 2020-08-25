@@ -37,14 +37,14 @@ const HomeScreen = ({ navigation }) => {
         icon: 'human-male-height-variant',
         iconSize: 20,
       },
-      {
-        colorPrimary: fourth.default,
-        colorSecondary: fourth.dark,
-        text: '287',
-        secondaryText: 'passos',
-        icon: 'shoe-print',
-        iconSize: 20,
-      },
+      // {
+      //   colorPrimary: fourth.default,
+      //   colorSecondary: fourth.dark,
+      //   text: '287',
+      //   secondaryText: 'passos',
+      //   icon: 'shoe-print',
+      //   iconSize: 20,
+      // },
       {
         colorPrimary: fifth.default,
         colorSecondary: fifth.dark,

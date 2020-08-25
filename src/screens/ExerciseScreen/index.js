@@ -26,7 +26,7 @@ const ExerciseScreen = ({ navigation }) => {
     const [items, setItems] = useState()
     const [showItems, setShowItems] = useState()
 
-    const [visibleModal, setVisibleModal] = useState(true)
+    const [visibleModal, setVisibleModal] = useState(false)
     const [exerciseName, setExerciseName] = useState()
     const [dayOfWeek, setDayOfWeek] = useState()
     const [loop, setLoop] = useState()

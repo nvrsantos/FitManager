@@ -55,8 +55,8 @@ export const InputSelector = (props) => {
                     <View style={{ alignItems: 'center' }}>
                         {props.items.map(element => {
                             return (
-                                <View style={{ backgroundColor: primary.very_lighter, paddingVertical: 10, width: '100%', alignItems: 'center', marginVertical: 1 }}>
-                                    <TouchW onPress={() => selectDay(element.value)} key={element.value}>
+                                <View key={element.value} style={{ backgroundColor: primary.very_lighter, paddingVertical: 10, width: '100%', alignItems: 'center', marginVertical: 1 }}>
+                                    <TouchW onPress={() => selectDay(element.value)}>
                                         <Text style={{ fontFamily: Roboto.regular, fontSize: 18, color: '#fff' }}>{element.label}</Text>
                                     </TouchW>
                                 </View>

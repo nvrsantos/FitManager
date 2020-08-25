@@ -21,20 +21,22 @@ const HeaderLeft = (props) => {
     )
 }
 
-const RoutesAuth = () => (
-    <Stack.Navigator initialRouteName={initialRoute()}>
-        <Stack.Screen name="Onboarding" component={OnboardingScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Signin" component={SigninScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Signup" component={SignupScreen}
-            options={({ navigation }) => ({
-                title: '',
-                headerLeft: () => <HeaderLeft icon="arrow-left" {...navigation} />,
-                headerStyle: {
-                    backgroundColor: 'transparent',
-                    elevation: 0
-                }
-            })} />
-    </Stack.Navigator>
-)
+const RoutesAuth = () => {
+    return (
+        <Stack.Navigator initialRouteName={initialRoute()}>
+            <Stack.Screen name="Onboarding" component={OnboardingScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Signin" component={SigninScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Signup" component={SignupScreen}
+                options={({ navigation }) => ({
+                    title: '',
+                    headerLeft: () => <HeaderLeft icon="arrow-left" {...navigation} />,
+                    headerStyle: {
+                        backgroundColor: 'transparent',
+                        elevation: 0
+                    }
+                })} />
+        </Stack.Navigator>
+    )
+}
 
 export default RoutesAuth
