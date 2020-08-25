@@ -21,6 +21,11 @@ const styles = StyleSheet.create({
   borderBottomRight: { borderBottomRightRadius: 10 },
   borderBottomLeft: { borderBottomLeftRadius: 10 },
 
+  // Selector Input
+  containerSelector: {
+    backgroundColor: input.background,
+  },
+
   //Bottom Input
   containerBottom: {
     backgroundColor: input.background_dark,

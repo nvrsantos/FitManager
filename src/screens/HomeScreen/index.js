@@ -1,7 +1,7 @@
 import moment from 'moment';
 import 'moment/locale/pt-br'
 import React, { useContext, useEffect, useState } from 'react';
-import { StyleSheet, View, Text, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, Dimensions, AsyncStorage } from 'react-native';
 
 import Header from '../../components/Header';
 import { BoxFluid, Box, GridBox } from '../../components/Box';
@@ -11,19 +11,55 @@ import { AuthContext } from '../../context/auth';
 import { Roboto } from '../../utils/fonts';
 
 const HomeScreen = ({ navigation }) => {
+  const [user, setUser] = useState()
   const [currentTime, setCurrentTime] = useState(moment().format('HH:mm'));
   const [currentDay, setCurrentDay] = useState(moment().format('ddd, DD [de] MMM'));
-  const [items, setItems] = useState({});
-  const { signOut, user } = useContext(AuthContext);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    AsyncStorage.getItem('@FM:user').then(user => {
+      setUser(JSON.parse(user))
+    })
+    setItems([
+      {
+        colorPrimary: secondary.default,
+        colorSecondary: secondary.dark,
+        text: '65',
+        secondaryText: 'kg',
+        icon: 'weight',
+        iconSize: 20,
+      },
+      {
+        colorPrimary: third.default,
+        colorSecondary: third.dark,
+        text: '173',
+        secondaryText: 'cm',
+        icon: 'human-male-height-variant',
+        iconSize: 20,
+      },
+      {
+        colorPrimary: fourth.default,
+        colorSecondary: fourth.dark,
+        text: '287',
+        secondaryText: 'passos',
+        icon: 'shoe-print',
+        iconSize: 20,
+      },
+      {
+        colorPrimary: fifth.default,
+        colorSecondary: fifth.dark,
+        text: '21',
+        secondaryText: 'IMC',
+        icon: 'google-fit',
+        iconSize: 20,
+      },
+    ])
+  }, [])
 
   setInterval(() => {
     moment().format('HH:mm') !== currentTime && setCurrentTime(moment().format('HH:mm'));
     moment().format('ddd, DD [de] MMM') !== currentDay && setCurrentDay(moment().format('ddd, DD [de] MMM'));
   }, 1000);
-
-  const handleSignout = () => {
-    signOut();
-  };
 
   return (
     <View style={styles.container}>
@@ -41,49 +77,13 @@ const HomeScreen = ({ navigation }) => {
           fluid
         />
         <View style={styles.multiItems}>
-          <Text style={styles.textWelcome}>Olá, {user.name}</Text>
+          <Text style={styles.textWelcome}>Olá{user?.name ? `, ${user.name}` : ''}</Text>
           <GridBox
             inLine={2}
-            boxes={[
-              {
-                colorPrimary: secondary.default,
-                colorSecondary: secondary.dark,
-                text: '65',
-                secondaryText: 'kg',
-                icon: 'weight',
-                iconSize: 20,
-              },
-              {
-                colorPrimary: third.default,
-                colorSecondary: third.dark,
-                text: '173',
-                secondaryText: 'cm',
-                icon: 'human-male-height-variant',
-                iconSize: 20,
-              },
-              {
-                colorPrimary: fourth.default,
-                colorSecondary: fourth.dark,
-                text: '287',
-                secondaryText: 'passos',
-                icon: 'shoe-print',
-                iconSize: 20,
-              },
-              {
-                colorPrimary: fifth.default,
-                colorSecondary: fifth.dark,
-                text: '21',
-                secondaryText: 'IMC',
-                icon: 'google-fit',
-                iconSize: 20,
-              },
-            ]}
+            boxes={items}
           />
         </View>
       </View>
-      <TouchableOpacity onPress={handleSignout}>
-        <Text>Sair</Text>
-      </TouchableOpacity>
     </View>
   );
 };

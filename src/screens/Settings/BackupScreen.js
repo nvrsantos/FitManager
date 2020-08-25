@@ -2,22 +2,21 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 
 import Header from '../../components/Header'
-import { ItemWithSub as Item } from '../../components/Options'
+import { Item, ItemWithSub } from '../../components/Options'
 import { primary } from '../../utils/colors'
 
-const GeralSettingScreen = ({navigation}) => {
+const BackupSettingScreen = ({navigation}) => {
     return(
         <View>
             <Header
                 icon="arrow-left"
-                label="Geral"
+                label="Backup"
                 backgroundColor={primary.darker}
                 onClick={() => navigation.goBack()}
             />
             <View style={styles.container}>
-                <Item label="Mostrar ao abrir" subLabel="Inicio" />
-                <Item label="Sistema de peso" subLabel="quilograma (kg)" />
-                <Item label="Sistema de medida" subLabel="centimetro (cm)" />
+                <Item label="Fazer backup agora" />
+                <ItemWithSub label="Backup recente" subLabel="18 de ago de 2020" />
             </View>
         </View>
     )
@@ -28,7 +27,8 @@ const styles = StyleSheet.create({
         width: '90%',
         alignSelf: 'center',
         paddingHorizontal: 20,
+        marginTop: 20
     }
 })
 
-export default GeralSettingScreen
+export default BackupSettingScreen

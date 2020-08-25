@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react'
+import React, { createContext, useState, useEffect, useContext } from 'react'
 import * as auth from '../services/auth'
 import { AsyncStorage, View } from 'react-native'
 import { ActivityIndicator, Text } from 'react-native-paper'
@@ -8,7 +8,7 @@ export const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState()
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [processing, setProcessing] = useState(false)
 
     useEffect(() => {
@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
         }
 
         loadStorageData()
-    })
+    }, [loading])
 
     const signIn = async () => {
         setLoading(true)
@@ -54,4 +54,12 @@ export const AuthProvider = ({ children }) => {
             {children}
         </AuthContext.Provider>
     )
+}
+
+export const useAuth = () => {
+    const context = useContext(AuthContext)
+
+    if(!context) throw new Error('useAuth deve ser usado com um AuthProvider')
+
+    return context
 }

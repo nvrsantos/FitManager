@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import {
     View,
     StyleSheet,
@@ -8,8 +8,7 @@ import {
 } from 'react-native'
 import { Checkbox } from 'react-native-paper'
 
-import { SignIn } from '../../services/auth'
-import { AuthContext } from '../../context/auth'
+import { useAuth } from '../../context/auth'
 
 import InputComponent from '../../components/Input'
 import ButtonComponent from '../../components/ButtonComponent'
@@ -17,7 +16,7 @@ import { background, text, primary } from '../../utils/colors'
 import { Roboto } from '../../utils/fonts'
 
 const SigninScreen = ({ navigation }) => {
-    const { signed, signIn, user } = useContext(AuthContext)
+    const { signIn } = useAuth()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const [remeber, setRemember] = useState(false)

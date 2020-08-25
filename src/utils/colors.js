@@ -35,6 +35,7 @@ export const text = {
     title: '#32264D',
     title_in_primary: '#FFFFFF',
     in_primary: '#D4C2FF',
+    sub: '#7B7F83',
     complement: '#9E99AA',
     base: '#6A6180',
     black: '#2D3436'
