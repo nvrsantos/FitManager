@@ -71,8 +71,8 @@ const SigninScreen = ({ navigation }) => {
     })
 
     const { signIn } = useAuth()
-    const [email, setEmail] = useState('playcar46@gmail.com')
-    const [password, setPassword] = useState('123')
+    const [email, setEmail] = useState()
+    const [password, setPassword] = useState()
 
     const navigateToSignup = (navigation) => navigation.push('Signup')
     const navigateToForgout = () => console.warn('Forgout')
@@ -108,11 +108,11 @@ const SigninScreen = ({ navigation }) => {
                         <InputComponent label='E-mail' borderRadiusTop value={setEmail} />
                         <InputComponent label='Senha' borderRadiusBottom value={setPassword} secure />
                     </View>
-                    <View style={styles.formOptions}>
+                    {/* <View style={styles.formOptions}>
                         <TouchW onPress={() => navigateToForgout(navigation)}>
                             <Text style={styles.textForgout}>Esqueci minha senha</Text>
                         </TouchW>
-                    </View>
+                    </View> */}
                     <ButtonComponent label="Entrar" onClick={() => handleSignin(navigation)} />
                 </View>
             </View>

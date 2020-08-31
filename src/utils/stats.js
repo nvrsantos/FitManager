@@ -1,4 +1,4 @@
 export const initialRoute = () => {
-    // return 'Onboarding'
-    return 'Signin'
+    return 'Onboarding'
+    // return 'Signin'
 }

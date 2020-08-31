@@ -34,6 +34,7 @@ const HeightScreen = ({ navigation }) => {
     }, [])
 
     const addHeight = async () => {
+        if(!height || height.trim() == '') return Alert.alert('Atenção', 'Você deve escrever uma altura !')
         if(!loading) setLoading(true)
         api.post('/height', {
             title: `${height}cm`,
@@ -43,6 +44,7 @@ const HeightScreen = ({ navigation }) => {
                 'Authorization': await GetToken()
             }
         }).then(response => {
+            setHeight('')
             Alert.alert('Sucesso', response.data.message)
             GetData()
         }).catch(error => {
@@ -89,7 +91,7 @@ const HeightScreen = ({ navigation }) => {
                 />
             </View>
             <View style={styles.inputContainer}>
-                <Input onClick={addHeight} label="Inserir Altura" value={setHeight} />
+                <Input onClick={addHeight} label="Inserir Altura" value={setHeight} keyboardType='number-pad' />
             </View>
         </View>
 

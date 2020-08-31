@@ -7,7 +7,6 @@ import { primary } from '../../utils/colors';
 import styles from './style';
 
 const BoxExerciseComponent = (props) => {
-  console.log(props.item);
   return (
     <View style={styles.container}>
       <View style={styles.boxContent}>

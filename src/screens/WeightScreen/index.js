@@ -34,6 +34,7 @@ const WeightScreen = ({ navigation }) => {
     }, [])
 
     const addWeight = async () => {
+        if(!weight || weight.trim() == '') return Alert.alert('Atenção', 'Você deve escrever um peso !')
         if(!loading) setLoading(true)
         api.post('/weight', {
             title: `${weight}kg`,
@@ -89,7 +90,7 @@ const WeightScreen = ({ navigation }) => {
                 />
             </View>
             <View style={styles.inputContainer}>
-                <Input onClick={addWeight} label="Inserir Peso" value={setWeight} />
+                <Input onClick={addWeight} label="Inserir Peso" value={setWeight} keyboardType='number-pad' />
             </View>
         </View>
 

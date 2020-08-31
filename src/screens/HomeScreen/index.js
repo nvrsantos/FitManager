@@ -21,7 +21,6 @@ const HomeScreen = ({ navigation }) => {
   const [info, setInfo] = useState()
 
   const GetInfoUser = async () => {
-    console.log('a');
     api.get('/user/info', {
       headers: {
         'Authorization': await GetToken()

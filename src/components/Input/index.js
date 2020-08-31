@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, TextInput, TouchableWithoutFeedback as TouchW } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
@@ -27,13 +27,16 @@ const InputComponent = (props) => {
 
 export const InputSelector = (props) => {
     const [visibleModal, setVisibleModal] = React.useState(false)
+    const [isSelected, setIsSelected] = useState(false)
     const bRT = props.borderRadiusTop ? [styles.borderTopRight, styles.borderTopLeft] : null
     const bRB = props.borderRadiusBottom ? [styles.borderBottomRight, styles.borderBottomLeft] : null
+    const colorTextSelect = isSelected ? '#000' : '#9c98a6'
 
     const showModal = () => setVisibleModal(true)
     const hideModal = () => setVisibleModal(false)
     const selectDay = (dayValue) => {
         props.onChangeValue(dayValue)
+        setIsSelected(dayValue)
         hideModal()
     }
 
@@ -44,7 +47,7 @@ export const InputSelector = (props) => {
                     <TextInput
                         style={[styles.input, bRT, bRB]}
                         placeholder={props.label}
-                        placeholderTextColor="#9c98a6"
+                        placeholderTextColor={colorTextSelect}
                         editable={false}
                     />
                 </View>
@@ -91,6 +94,7 @@ export const InputBottom = (props) => {
                     placeholderTextColor="#fff"
                     secureTextEntry={props.secure}
                     onChangeText={(text) => props.value(text)}
+                    {...props}
                 />
                 <TouchW onPress={props.onClick}>
                     <View style={[styles.circleIcon, { width: props.sizeCircle || 70, height: props.sizeCircle || 70, borderRadius: props.sizeCircle / 2 || 35 }]}>
