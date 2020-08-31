@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react'
-import * as auth from '../services/auth'
 import { AsyncStorage, View } from 'react-native'
-import { ActivityIndicator, Text } from 'react-native-paper'
+import { ActivityIndicator } from 'react-native-paper'
 import { primary } from '../utils/colors'
 
 export const AuthContext = createContext({})
@@ -23,14 +22,14 @@ export const AuthProvider = ({ children }) => {
         loadStorageData()
     }, [loading])
 
-    const signIn = async () => {
+    const signIn = async (user, token) => {
         setLoading(true)
         setProcessing(true)
-        const res = await auth.SignIn(null, null)
 
-        setUser(res.user)
-        await AsyncStorage.setItem('@FM:user', JSON.stringify(res.user))
-        await AsyncStorage.setItem('@FM:token', res.token)
+        setUser(user)
+        
+        await AsyncStorage.setItem('@FM:user', JSON.stringify(user))
+        await AsyncStorage.setItem('@FM:token', token)
         setProcessing(false)
         setLoading(false)
     }

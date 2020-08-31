@@ -31,12 +31,13 @@ export const BoxFluid = (props) => {
 export const Box = (props) => {
     const bg = props.colorPrimary || '#A29BFE'
     const secondBG = props.colorSecondary || '#6C5CE7'
+    const sizeText = props.sizeText || 60
 
     return (
         <View style={[styles.container, { backgroundColor: bg, width: props.width || 150, height: props.height || 150 }]}>
             <View style={styles.topBoxSquare}>
                 <View style={styles.mainSquare}>
-                    <Text style={[styles.textMain, styles.sizeTextMainSquare]}>{props.text}</Text>
+                    <Text style={[styles.textMain, styles.sizeTextMainSquare, { fontSize: sizeText }]}>{props.text}</Text>
                     <View style={styles.secondTextMainContainer}>
                         <Text style={styles.secondTextMain}>{props.secondaryText}</Text>
                     </View>

@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { primary } from '../../utils/colors';
 
 const BoxWeightComponent = (props) => {
-  const [weight, unit] = props?.item?.weight.toString().split(' ');
+  const [weight, unit] = props?.item?.title.toString().split(' ');
   return (
     <View style={styles.container}>
       <View style={styles.boxContent}>

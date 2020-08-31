@@ -10,13 +10,13 @@ import { primary } from '../../utils/colors';
 import api, { GetToken } from '../../services/api';
 import ModalComponent from '../../components/Modal';
 
-const WeightScreen = ({ navigation }) => {
-    const [weight, setWeight] = useState();
+const HeightScreen = ({ navigation }) => {
+    const [height, setHeight] = useState();
     const [date, setDate] = useState();
     const [loading, setLoading] = useState(false)
 
     const GetData = async () => {
-        api.get('/weight', {
+        api.get('/height', {
             headers: {
                 'Authorization': await GetToken()
             }
@@ -33,10 +33,10 @@ const WeightScreen = ({ navigation }) => {
         GetData()
     }, [])
 
-    const addWeight = async () => {
+    const addHeight = async () => {
         if(!loading) setLoading(true)
-        api.post('/weight', {
-            title: `${weight}kg`,
+        api.post('/height', {
+            title: `${height}cm`,
             date: new Date()
         }, {
             headers: {
@@ -50,9 +50,9 @@ const WeightScreen = ({ navigation }) => {
             Alert.alert('Ocorreu um erro.', error.response.data.message)
         })
     };
-    const deleteWeight = async (id) => {
+    const deleteHeight = async (id) => {
         if(!loading) setLoading(true)
-        api.delete(`/weight/${id}`, {
+        api.delete(`/height/${id}`, {
             headers: {
                 'Authorization': await GetToken()
             }
@@ -71,7 +71,7 @@ const WeightScreen = ({ navigation }) => {
                 backgroundColor={primary.darker}
                 icon="menu"
                 iconSize={30}
-                label="Pesos"
+                label="Altura"
                 onClick={() => navigation.openDrawer()}
             />
             <ModalComponent visible={loading}>
@@ -84,19 +84,19 @@ const WeightScreen = ({ navigation }) => {
                 <FlatList
                     style={styles.items}
                     data={date}
-                    renderItem={item => <Box onClick={deleteWeight} loaded {...item} />}
+                    renderItem={item => <Box onClick={deleteHeight} loaded {...item} />}
                     keyExtractor={item => item.id}
                 />
             </View>
             <View style={styles.inputContainer}>
-                <Input onClick={addWeight} label="Inserir Peso" value={setWeight} />
+                <Input onClick={addHeight} label="Inserir Altura" value={setHeight} />
             </View>
         </View>
 
     );
 };
 
-export default WeightScreen;
+export default HeightScreen;
 
 const styles = StyleSheet.create({
     container: {

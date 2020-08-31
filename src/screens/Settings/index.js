@@ -41,10 +41,10 @@ const SettingScreen = ({ navigation }) => {
                         </View>
                     </View>
                 </Modal>
-                <ItemWithIcon label="Geral" icon="settings" onClick={() => navigation.push('Geral')} borderBottom />
+                {/* <ItemWithIcon label="Geral" icon="settings" onClick={() => navigation.push('Geral')} borderBottom /> */}
                 <ItemWithIcon label="Perfil" icon="account" onClick={() => navigation.push('Profile')} borderBottom />
-                <ItemWithIcon label="Notificação" icon="bell" onClick={() => navigation.push('Notification')} borderBottom />
-                <ItemWithIcon label="Backup" icon="cloud-upload" onClick={() => navigation.push('Backup')} borderBottom />
+                {/* <ItemWithIcon label="Notificação" icon="bell" onClick={() => navigation.push('Notification')} borderBottom /> */}
+                {/* <ItemWithIcon label="Backup" icon="cloud-upload" onClick={() => navigation.push('Backup')} borderBottom /> */}
                 <ItemWithIcon label="Tecnologias" icon="code-braces" onClick={() => navigation.push('Tecnology')} borderBottom />
                 <ItemWithIcon label="Sobre" icon="information" onClick={showModalAbout} borderBottom />
             </View>

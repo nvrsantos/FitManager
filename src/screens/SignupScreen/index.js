@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, KeyboardAvoidingView } from 'react-native'
+import { StyleSheet, View, Text, KeyboardAvoidingView, Alert } from 'react-native'
 
-import Header from '../../components/Header'
+import api from '../../services/api'
+
 import Input from '../../components/Input'
 import Button from '../../components/ButtonComponent'
+
 import { Roboto } from '../../utils/fonts'
 import { text } from '../../utils/colors'
 
@@ -12,7 +14,26 @@ const SignupScreen = ({ navigation }) => {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
 
-    const handleSignUp = () => {console.warn('sign up')}
+    const handleSignUp = () => {
+        api.post('/signup', {
+            name,
+            email,
+            password
+        })
+            .then(response => {
+                setName('')
+                setEmail('')
+                setPassword('')
+                Alert.alert('Concluido', 'Seu cadastro foi concluido com sucesso !', [
+                    { text: 'Entrar', onPress: () => navigation.goBack() },
+                    { text: 'Criar conta' }
+                ],
+                    { cancelable: false })
+            })
+            .catch(error => {
+                Alert.alert('Algo está errado...', error.response.data.message)
+            })
+    }
 
     return (
         <View style={styles.container}>

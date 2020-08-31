@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { View, Image, Text, TouchableWithoutFeedback as TouchW, StyleSheet } from 'react-native'
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
+import { View, Text } from 'react-native'
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
 import { createStackNavigator } from '@react-navigation/stack'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
@@ -8,6 +8,7 @@ import { AuthContext } from '../context/auth';
 
 import HomeScreen from '../screens/HomeScreen'
 import WeightScreen from '../screens/WeightScreen'
+import HeightScreen from '../screens/HeightScreen'
 import ExerciseScreen from '../screens/ExerciseScreen'
 
 import SettingScreen from '../screens/Settings'
@@ -17,7 +18,7 @@ import NotificationSettingScreen from '../screens/Settings/NotificationScreen'
 import BackupSettingScreen from '../screens/Settings/BackupScreen'
 import TecnologySettingScreen from '../screens/Settings/TecnologyScreen'
 import { Roboto } from '../utils/fonts'
-import { background, primary, text } from '../utils/colors'
+import { background, primary } from '../utils/colors'
 
 const Drawer = createDrawerNavigator()
 const Stack = createStackNavigator()
@@ -27,8 +28,10 @@ const DrawerContent = (props) => {
         <DrawerContentScrollView {...props} scrollEnabled={false} contentContainerStyle={{ flex: 1 }}>
             <View style={{ flex: 1 }}>
                 <View style={{ flexDirection: 'row', width: '100%', alignItems: 'center', marginLeft: 20, marginVertical: 20 }}>
-                    <Image resizeMode="contain" style={{ width: 30, height: 30, borderRadius: 50, marginRight: 15 }} source={{ uri: props?.user?.avatar }} />
-                    <Text style={{ fontFamily: Roboto.regular, fontSize: 17}}>{props?.user?.name}</Text>
+                    <View style={{ backgroundColor: primary.darker, width: 30, height: 30, borderRadius: 999, marginRight: 15, justifyContent: 'center', alignItems: 'center' }}>
+                        <Icon name="account" size={20} color="#fff" />
+                    </View>
+                    <Text style={{ fontFamily: Roboto.regular, fontSize: 17 }}>{props?.user?.name}</Text>
                 </View>
                 <View>
                     <DrawerItem
@@ -49,6 +52,15 @@ const DrawerContent = (props) => {
                         inactiveTintColor={props.inactiveTintColor}
                         icon={({ color }) => <Icon name="weight" color={color} size={30} />}
                         onPress={() => props.navigation.navigate("WeightScreen")}
+                    />
+                    <DrawerItem
+                        label="Altura"
+                        labelStyle={{ fontFamily: Roboto.bold }}
+                        activeTintColor={props.activeTintColor}
+                        activeBackgroundColor={props.activeBackgroundColor}
+                        inactiveTintColor={props.inactiveTintColor}
+                        icon={({ color }) => <Icon name="human-male-height-variant" color={color} size={30} />}
+                        onPress={() => props.navigation.navigate("HeightScreen")}
                     />
                     <DrawerItem
                         label="Exercicios"
@@ -119,6 +131,7 @@ const RoutesApp = () => {
         >
             <Drawer.Screen name="HomeScreen" component={HomeScreen} />
             <Drawer.Screen name="WeightScreen" component={WeightScreen} />
+            <Drawer.Screen name="HeightScreen" component={HeightScreen} />
             <Drawer.Screen name="ExerciseScreen" component={ExerciseScreen} />
             <Drawer.Screen name="SettingScreen" component={RoutesSettings} />
         </Drawer.Navigator>

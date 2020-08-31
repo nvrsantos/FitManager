@@ -4,23 +4,20 @@ import {
     StyleSheet,
     Text,
     TouchableWithoutFeedback as TouchW,
-    Image
+    Image,
+    Alert
 } from 'react-native'
-import { Checkbox } from 'react-native-paper'
 
 import { useAuth } from '../../context/auth'
+import api from '../../services/api'
+import axios from 'axios'
 
 import InputComponent from '../../components/Input'
 import ButtonComponent from '../../components/ButtonComponent'
-import { background, text, primary } from '../../utils/colors'
+import { background, text } from '../../utils/colors'
 import { Roboto } from '../../utils/fonts'
 
 const SigninScreen = ({ navigation }) => {
-    const { signIn } = useAuth()
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
-    const [remeber, setRemember] = useState(false)
-
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -59,20 +56,13 @@ const SigninScreen = ({ navigation }) => {
         contentForm: {
             width: '100%'
         },
-        formInputs: { marginBottom: 20 },
+        formInputs: { marginBottom: 15 },
         formOptions: {
             marginBottom: 20,
+            marginRight: 15,
             flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-        },
-        checkboxContainer: {
-            flexDirection: 'row',
-            alignItems: 'center'
-        },
-        textCheckbox: {
-            color: remeber ? primary.primary : text.complement,
-            fontFamily: Roboto.regular
+            justifyContent: 'flex-end',
+            alignItems: 'center',
         },
         textForgout: {
             color: text.complement,
@@ -80,10 +70,25 @@ const SigninScreen = ({ navigation }) => {
         }
     })
 
+    const { signIn } = useAuth()
+    const [email, setEmail] = useState('playcar46@gmail.com')
+    const [password, setPassword] = useState('123')
+
     const navigateToSignup = (navigation) => navigation.push('Signup')
     const navigateToForgout = () => console.warn('Forgout')
     const handleSignin = () => {
-        signIn()
+        api.post('signin', {
+            email,
+            password
+        })
+            .then(response => {
+                const { user, token } = response.data
+                signIn(user, token)
+            })
+            .catch(error => {
+                console.log(error);
+                Alert.alert('Algo está errado...', error.response.data.message)
+            })
     }
 
     return (
@@ -104,15 +109,6 @@ const SigninScreen = ({ navigation }) => {
                         <InputComponent label='Senha' borderRadiusBottom value={setPassword} secure />
                     </View>
                     <View style={styles.formOptions}>
-                        <View style={styles.checkboxContainer}>
-                            <Checkbox
-                                status={remeber ? 'checked' : 'unchecked'}
-                                onPress={() => setRemember(!remeber)}
-                                color={primary.primary}
-                                uncheckedColor={text.complement}
-                            />
-                            <Text style={styles.textCheckbox}>Lembrar-me</Text>
-                        </View>
                         <TouchW onPress={() => navigateToForgout(navigation)}>
                             <Text style={styles.textForgout}>Esqueci minha senha</Text>
                         </TouchW>

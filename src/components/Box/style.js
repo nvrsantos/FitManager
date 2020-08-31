@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    mainSquare: {},
     sizeTextMainSquare: { fontSize: 60 },
     secondTextMainContainer: {
         alignItems: 'flex-end',

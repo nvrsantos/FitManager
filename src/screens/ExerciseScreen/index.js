@@ -10,6 +10,7 @@ import {
     Dimensions,
     Alert,
 } from 'react-native'
+import { ActivityIndicator } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import Header from '../../components/Header'
@@ -19,12 +20,14 @@ import Input, { InputSelector } from '../../components/Input'
 
 import { primary, text, fourth } from '../../utils/colors'
 import { Roboto, Archivo } from '../../utils/fonts'
+import api, { GetToken } from '../../services/api'
 
 const ExerciseScreen = ({ navigation }) => {
     const [active, setActive] = useState("All")
     const [allItems, setAllItems] = useState()
     const [items, setItems] = useState()
     const [showItems, setShowItems] = useState()
+    const [loading, setLoading] = useState(false)
 
     const [visibleModal, setVisibleModal] = useState(false)
     const [exerciseName, setExerciseName] = useState()
@@ -54,52 +57,63 @@ const ExerciseScreen = ({ navigation }) => {
         setDelayTime()
         setVisibleModal(false)
     }
-    const addNewExercise = () => {
-        if(!exerciseName || exerciseName.trim() == '') return Alert.alert('Ops...', 'Você não escolheu um nome.')
-        if(!dayOfWeek || dayOfWeek.trim() == '') return Alert.alert('Ops...', 'Você não escolheu um dia da semana.')
-        if(!loop || loop.trim() == '') return Alert.alert('Ops...', 'Você não colocou uma repetição.')
-        if(!delayTime || delayTime.trim() == '') return Alert.alert('Ops...', 'Você não colocou um tempo.')
 
-        setVisibleModal(false)
-        clearInputs()
-        console.warn('added')
+    const addNewExercise = async () => {
+        if (!exerciseName || exerciseName.trim() == '') return Alert.alert('Ops...', 'Você não escolheu um nome.')
+        if (!dayOfWeek || dayOfWeek.trim() == '') return Alert.alert('Ops...', 'Você não escolheu um dia da semana.')
+        if (!loop || loop.trim() == '') return Alert.alert('Ops...', 'Você não colocou uma repetição.')
+        if (!delayTime || delayTime.trim() == '') return Alert.alert('Ops...', 'Você não colocou um tempo.')
+
+        setLoading(true)
+        api.post('/exercise', {
+            title: exerciseName,
+            day_of_week: dayOfWeek,
+            loop,
+            delay_time: delayTime
+        }, {
+            headers: {
+                'Authorization': await GetToken()
+            }
+        }).then(respose => {
+            setLoading(false)
+            Alert.alert('Sucesso', respose.data.message)
+            setVisibleModal(false)
+            clearInputs()
+            GetExercises()
+        }).catch(error => {
+            Alert.alert('Ocorreu um erro.', error.response.data.message)
+            setLoading(false)
+        })
+
     }
 
-    useEffect(() => {
-        setTimeout(() => {
-            const data = [
-                {
-                    id: '1',
-                    title: 'Abodminal bicileta',
-                    day: 'Segunda-Feira',
-                    loop: '2x30',
-                    delay: '30s'
-                },
-                {
-                    id: '2',
-                    title: 'Flexão Punho',
-                    day: 'Terça-Feira',
-                    loop: '4x12',
-                    delay: '15s'
-                },
-                {
-                    id: '3',
-                    title: 'Voador',
-                    day: 'Terça-Feira',
-                    loop: '3x12',
-                    delay: '20s'
-                },
-                {
-                    id: '4',
-                    title: 'Voador',
-                    day: 'Terça-Feira',
-                    loop: '3x12',
-                    delay: '20s'
-                },
-            ]
+    const deleteExercise = async (id) => {
+        setLoading(true)
+        api.delete(`/exercise/${id}`, {
+            headers: {
+                'Authorization': await GetToken()
+            }
+        }).then(response => {
+            Alert.alert('Sucesso', response.data.message)
+            GetExercises()
+            setLoading(false)
+        }).catch(error => {
+            Alert.alert('Ocorreu um erro.', error.response.data.message)
+            setLoading(false)
+        })
+    }
+
+    const GetExercises = async () => {
+        api.get('/exercise', {
+            headers: {
+                'Authorization': await GetToken()
+            }
+        }).then(response => {
+            const data = response.data
+
             setItems(
                 data.filter(item => {
-                    return item.day.toLowerCase() == moment().format('dddd').toLowerCase()
+                    return item.day_of_week.toLowerCase() == moment().format('dddd').toLowerCase()
                 })
                     .map(itemMap => {
                         return itemMap
@@ -107,7 +121,16 @@ const ExerciseScreen = ({ navigation }) => {
             )
             setAllItems(data)
             setShowItems(data)
-        }, 2000)
+
+            setLoading(false)
+        }).catch(error => {
+            Alert.alert('Ocorreu um erro.', error.response.data.message)
+            setLoading(false)
+        })
+    }
+
+    useEffect(() => {
+        GetExercises()
     }, [])
 
     return (
@@ -118,6 +141,11 @@ const ExerciseScreen = ({ navigation }) => {
                 onClick={() => navigation.openDrawer()}
             />
             <View style={styles.container}>
+                <Modal visible={loading}>
+                    <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}>
+                        <ActivityIndicator animating={true} size="large" color={primary.darker} />
+                    </View>
+                </Modal>
                 <View style={styles.selectorContainer}>
                     <TouchW onPress={() => toggleActive("All")} disabled={!!!items}>
                         <View style={[styles.itemSelectorAll, activeAll]}>
@@ -168,7 +196,7 @@ const ExerciseScreen = ({ navigation }) => {
                     <FlatList
                         style={{ height: '100%' }}
                         data={showItems}
-                        renderItem={item => <Box loaded {...item} onClick={(id) => console.warn(`delete ${id}`)} />}
+                        renderItem={item => <Box loaded {...item} onClick={(id) => deleteExercise(id)} />}
                         keyExtractor={item => item.id}
                     />
                     <TouchW onPress={showModal}>
