@@ -33,7 +33,7 @@ const BoxWeightComponent = (props) => {
             </View>
           </ShimmerPlaceHolder>
         </View>
-        <TouchW onPress={() => props.onClick(props?.item?.id)}>
+        <TouchW onPress={() => props.onClick(props?.item?._id)}>
           <View style={styles.circleIcon}>
             <Icon name="delete" size={30} color="#fff" />
           </View>

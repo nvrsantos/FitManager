@@ -22,7 +22,7 @@ const HeightScreen = ({ navigation }) => {
             }
         }).then(response => {
             setLoading(false)
-            setDate(response.data)
+            setDate(response.data.height.reverse())
         }).catch(error => {
             setLoading(false)
             Alert.alert('Ocorreu um erro.', error.response.data.message || error.response.data)
@@ -87,7 +87,7 @@ const HeightScreen = ({ navigation }) => {
                     style={styles.items}
                     data={date}
                     renderItem={item => <Box onClick={deleteHeight} loaded {...item} />}
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => item._id}
                 />
             </View>
             <View style={styles.inputContainer}>

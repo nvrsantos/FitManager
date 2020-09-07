@@ -96,6 +96,7 @@ const ExerciseScreen = ({ navigation }) => {
         }).then(response => {
             Alert.alert('Sucesso', response.data.message)
             GetExercises()
+            toggleActive("All")
             setLoading(false)
         }).catch(error => {
             Alert.alert('Ocorreu um erro.', error.response.data.message)
@@ -109,7 +110,7 @@ const ExerciseScreen = ({ navigation }) => {
                 'Authorization': await GetToken()
             }
         }).then(response => {
-            const data = response.data
+            const data = response.data.exercise
 
             setItems(
                 data.filter(item => {
@@ -119,9 +120,11 @@ const ExerciseScreen = ({ navigation }) => {
                         return itemMap
                     })
             )
-            setAllItems(data)
+            // Coloca os items em ordem alfabetica
+            setAllItems(data.sort((a, b) => {
+                return (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)
+            }))
             setShowItems(data)
-
             setLoading(false)
         }).catch(error => {
             Alert.alert('Ocorreu um erro.', error.response.data.message)

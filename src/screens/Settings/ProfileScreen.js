@@ -55,6 +55,26 @@ const ProfileSettingScreen = ({ navigation }) => {
         })
     }
 
+    const deleteProfile = async () => {
+        api.delete('/user', {
+            headers: {
+                'Authorization': await GetToken()
+            }
+        }).then(response => {
+            Alert.alert('Sucesso', response.data.message)
+            signOut()
+        }).catch(error => {
+            Alert.alert('Ocorreu um erro.', error.response.data.message)
+        })
+    }
+
+    const handleMessageDeleteProfile = () => {
+        Alert.alert('Deseja Continuar ?', 'Você tem certeza que deseja deleter sua conta permanentemente ?', [
+            { text: 'Confirmar', onPress: () => deleteProfile() },
+            { text: 'Cancelar', style: 'cancel' }
+        ])
+    }
+
     const handleMessageUpdateProfile = () => {
         Alert.alert('Deseja Continuar ?', 'Você será deslogado da aplicação para atualizarmos seu perfil...', [
             { text: 'Confirmar', onPress: () => updateProfile() },
@@ -87,6 +107,9 @@ const ProfileSettingScreen = ({ navigation }) => {
                             </View>
                             <View style={{ marginTop: 20 }}>
                                 <Button label="Atualizar" onClick={handleMessageUpdateProfile} />
+                            </View>
+                            <View style={{ marginTop: 10 }}>
+                                <Button label="Apagar Conta" backgroundColor="#D63031" onClick={handleMessageDeleteProfile} />
                             </View>
                         </View>
                     )}
