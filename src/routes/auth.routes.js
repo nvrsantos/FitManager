@@ -7,6 +7,7 @@ import { initialRoute } from '../utils/stats'
 
 import SigninScreen from '../screens/SigninScreen'
 import SignupScreen from '../screens/SignupScreen'
+import ForgotScreen from '../screens/ForgotScreen'
 import OnboardingScreen from '../screens/OnboardingScreen'
 
 const Stack = createStackNavigator()
@@ -27,6 +28,15 @@ const RoutesAuth = () => {
             <Stack.Screen name="Onboarding" component={OnboardingScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Signin" component={SigninScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Signup" component={SignupScreen}
+                options={({ navigation }) => ({
+                    title: '',
+                    headerLeft: () => <HeaderLeft icon="arrow-left" {...navigation} />,
+                    headerStyle: {
+                        backgroundColor: 'transparent',
+                        elevation: 0
+                    }
+                })} />
+            <Stack.Screen name="Forgot" component={ForgotScreen}
                 options={({ navigation }) => ({
                     title: '',
                     headerLeft: () => <HeaderLeft icon="arrow-left" {...navigation} />,

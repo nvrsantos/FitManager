@@ -10,7 +10,6 @@ import {
 
 import { useAuth } from '../../context/auth'
 import api from '../../services/api'
-import axios from 'axios'
 
 import InputComponent from '../../components/Input'
 import ButtonComponent from '../../components/ButtonComponent'
@@ -75,7 +74,7 @@ const SigninScreen = ({ navigation }) => {
     const [password, setPassword] = useState()
 
     const navigateToSignup = (navigation) => navigation.push('Signup')
-    const navigateToForgout = () => console.warn('Forgout')
+    const navigateToForgout = (navigation) => navigation.push('Forgot')
     const handleSignin = () => {
         api.post('signin', {
             email,
@@ -108,11 +107,11 @@ const SigninScreen = ({ navigation }) => {
                         <InputComponent label='E-mail' borderRadiusTop value={setEmail} />
                         <InputComponent label='Senha' borderRadiusBottom value={setPassword} secure />
                     </View>
-                    {/* <View style={styles.formOptions}>
+                    <View style={styles.formOptions}>
                         <TouchW onPress={() => navigateToForgout(navigation)}>
                             <Text style={styles.textForgout}>Esqueci minha senha</Text>
                         </TouchW>
-                    </View> */}
+                    </View>
                     <ButtonComponent label="Entrar" onClick={() => handleSignin(navigation)} />
                 </View>
             </View>
