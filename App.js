@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react'
+import React, { useState } from 'react'
 import { StatusBar } from 'react-native'
 import { useFonts } from 'expo-font'
 import { NavigationContainer } from '@react-navigation/native'
@@ -10,6 +10,7 @@ import Routes from './src/routes'
 import { primary } from './src/utils/colors'
 
 export default function App() {
+	const [isReady, setIsReady] = useState(false)
 	const [loaded] = useFonts({
 		Archivo: require('./assets/fonts/Archivo-Regular.ttf'),
 		Archivo_medium: require('./assets/fonts/Archivo-Medium.ttf'),
