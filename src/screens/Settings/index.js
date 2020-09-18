@@ -29,7 +29,7 @@ const SettingScreen = ({ navigation }) => {
                 <Modal visible={visibleAbout}>
                     <View style={styles.modalContainer}>
                         <Text style={styles.modalTitle}>Sobre</Text>
-                        <Text style={styles.modalTextDesc}><Text style={styles.modalTextBold}>FitManager 1.0.0</Text>. É um aplicativo para gerenciar exercicios e monitorar seu peso e IMC.</Text>
+                        <Text style={styles.modalTextDesc}><Text style={styles.modalTextBold}>FitManager 2.1.3</Text>. É um aplicativo para gerenciar exercicios e monitorar seu peso e IMC.</Text>
                         <Text style={styles.modalTextCredit}>Desenvolvido por <Text style={styles.modalTextBold}>nevr001</Text>.</Text>
                         <View style={styles.modalBottom}>
                             <TouchW onPress={() => Linking.openURL('https://github.com/nvrsantos')}>
