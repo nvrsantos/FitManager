@@ -102,8 +102,8 @@ const ProfileSettingScreen = ({ navigation }) => {
                             <View style={styles.formInputs}>
                                 <Input label={user.name || "Nome"} value={setNewName} borderRadiusTop />
                                 <Input label={user.email || "E-mail"} value={setNewEmail} />
-                                <Input label="Senha" value={setNewPassword} secure />
-                                <Input label='Confirmar Senha' value={setConfirmNewPassword} borderRadiusBottom secure />
+                                <Input label="Nova Senha" value={setNewPassword} secure />
+                                <Input label='Confirmar Nova Senha' value={setConfirmNewPassword} borderRadiusBottom secure />
                             </View>
                             <View style={{ marginTop: 20 }}>
                                 <Button label="Atualizar" onClick={handleMessageUpdateProfile} />
