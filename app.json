@@ -20,7 +20,7 @@
       "package": "com.nevr001.fitmanager",
       "versionCode": 2,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon_foreground.png",
+        "foregroundImage": "./assets/icon-fg.png",
         "backgroundColor": "#6c5ce7"
       }
     }
